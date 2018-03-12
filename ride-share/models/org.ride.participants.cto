@@ -1,9 +1,14 @@
 namespace org.ride.participants
 
+
 abstract participant RideParticipant identified by email {
   o String email
+  o Person person
+}
 
-
+concept Person {
+	o String firstName
+	o String lastName
 }
 
 

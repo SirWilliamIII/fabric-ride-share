@@ -8,16 +8,26 @@
  * @param {org.ride.ChangeAssetValue} changeAssetValue
  * @transaction
  */
-function onChangeAssetValue(changeAssetValue) {
-	var assetRegistry
-	var id = changeAssetValue.relatedAsset.assetId
-	return getAssetRegistry('org.ride.SampleAsset')
-		.then(function(ar) {
-			assetRegistry = ar
-			return assetRegistry.get(id)
-		})
-		.then(function(asset) {
-			asset.value = changeAssetValue.newValue
-			return assetRegistry.update(asset)
-		})
+
+function createRide(rideData) {
+	const time = new Date().getTime()
+	const pickupTime = new Date(rideData.pickupTime).getTime()
+	const late = time - pickupTime
+
+	if (late > 0) {
+		throw new Error('Time Travel Not Allowed')
+	}
 }
+
+return getAssetRegistry('org.ride.ride.Ride').then(flightRegistry => {
+	const factory = getFactory()
+	const namespace = 'org.ride.ride'
+
+	const rideId = generateRideId(
+		rideId.driverLocation,
+		rideId.pickupLocation,
+		rideId.dropoffLocation
+	)
+
+	const ride = factory.newResource(namespace, 'Ride', rideId)
+})

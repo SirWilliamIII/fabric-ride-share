@@ -1,0 +1,28 @@
+namespace org.ride.ride
+
+
+asset Ride identified by rideId {
+  o String rideId
+  o Address driverLocation
+  o Address pickupLocation
+  o Address dropoffLocation
+}
+
+abstract concept Address {
+  o Integer streetName
+  o String streetNumber
+  o String city optional
+  o String country optional
+}
+
+transaction createRide {
+  o String rideId
+  o Address pickupLocation
+  o Address dropoffLocation
+  o DateTime pickupTime
+  o DateTime dropoffTime
+}
+
+event RideCreated {
+  o String rideId
+}
